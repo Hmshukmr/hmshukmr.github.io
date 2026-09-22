@@ -15,6 +15,7 @@
   --text-muted: #4b5563;  /* nav links — gray-600 */
   --text-faint: #6b7280;  /* footer — gray-500 */
   --accent: #2563eb;      /* blue-600 */
+  --accent-hover: #1d4ed8; /* blue-700 */
 
   --measure: 42rem;       /* 672px single column */
   --gutter: 1.5rem;
@@ -138,8 +139,11 @@ p:last-child {
 
 a {
   color: var(--accent);
-  text-decoration: underline;
-  text-underline-offset: 0.15em;
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--accent-hover);
 }
 
 a:focus-visible {
@@ -183,10 +187,8 @@ strong {
     --text-strong: #ffffff;
     --text-muted: #d4d4d4;
     --text-faint: #a3a3a3;  /* neutral-400 */
-  }
-
-  a {
-    color: #ffffff;
+    --accent: #60a5fa;      /* blue-400 */
+    --accent-hover: #93c5fd; /* blue-300 */
   }
 }
 
