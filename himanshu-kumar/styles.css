@@ -7,8 +7,10 @@
    ========================================================================== */
 
 :root {
+  color-scheme: light;
+
   --bg: #ffffff;
-  --bg-dark: #262626;
+  --bg-dark: #1e293b;     /* darkish blue */
 
   --text: #374151;        /* body   — gray-700 */
   --text-strong: #111827; /* headings / labels — gray-900 */
@@ -172,8 +174,10 @@ strong {
 /* --- footer --------------------------------------------------------------- */
 
 .footer {
-  padding: 1.5rem 0 2rem;
-  text-align: center;
+  width: 100%;
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 1.5rem var(--gutter) 2rem;
   font-size: 0.75rem; /* text-xs */
   color: var(--text-faint);
 }
@@ -182,6 +186,8 @@ strong {
 
 @media (prefers-color-scheme: dark) {
   :root {
+    color-scheme: dark;
+
     --bg: var(--bg-dark);
     --text: #d4d4d4;        /* neutral-300 */
     --text-strong: #ffffff;
@@ -193,6 +199,48 @@ strong {
 }
 
 /* --- motion --------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: no-preference) {
+  /* content links snapped while the nav eased; one timing now covers both */
+
+  a {
+    transition: color 150ms ease;
+  }
+
+  /* A page change no longer tears down and rebuilds. The page you are leaving
+     holds still and the new one fades in on top of it, so the shared parts
+     never move and a reload of the page you are already on is invisible. */
+
+  @view-transition {
+    navigation: auto;
+  }
+
+  /* keeps the page colour under everything if a gap ever appears */
+
+  ::view-transition {
+    background: var(--bg);
+  }
+
+  /* nothing animates the outgoing page, so identical content cannot blink */
+
+  ::view-transition-old(root) {
+    animation: none;
+  }
+
+  /* normal blending matters: the default additive blend brightens whatever
+     the two pages have in common, which is what washed the nav out white. */
+
+  ::view-transition-new(root) {
+    animation: 150ms cubic-bezier(0.2, 0, 0, 1) both page-in;
+    mix-blend-mode: normal;
+  }
+}
+
+@keyframes page-in {
+  from {
+    opacity: 0;
+  }
+}
 
 @media (prefers-reduced-motion: reduce) {
   .nav__brand,
